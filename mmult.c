@@ -37,9 +37,8 @@ int mmult(double *c,
 }
 
 //vectorization
-int mmult_v(double *c, double *a, int aRows, int aCols, double *b, int bRows, int bCols) {
-
-
+int mmult_v(double *c, double *a, int aRows, int aCols, double *b, int bRows, int bCols) 
+{
     for(int i = 0; i < aRows; ++i){
         for(int j = 0; j < bCols; ++j) {
             c[i * bCols + j] = 0;
@@ -51,5 +50,4 @@ int mmult_v(double *c, double *a, int aRows, int aCols, double *b, int bRows, in
         }//end of for
     }//end of for
     return 0;
-}//end of mmul_vector
-
+}//end of mmul_v
