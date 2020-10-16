@@ -60,6 +60,7 @@ double* gen_matrix(int n, int m)
 }//end gen_matrix()
 
 
+/*
 void compare_matrices(double* a, double* b, int nRows, int nCols)
 {
   int n = nRows * nCols;
@@ -76,7 +77,7 @@ void compare_matrices(double* a, double* b, int nRows, int nCols)
   }
   printf("Matrices are the same\n");
 }//end compare_matrices()
-
+*/
 
 void print_Matrix(double* a, int rows, int cols)
 {
