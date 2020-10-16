@@ -11,5 +11,7 @@ messages to each other. There are two types of process, which is the controller 
 process would be the ones to send the messages and give the workers work essentially, while the worker receives that data and give 
 the result back to the controller.
 
+Trello: https://trello.com/b/kfWbrZQM/parallel-computing
+
 The output graph:
 ![alt text](https://github.com/3296Fall2020/matrix-03-wolf-chaing-cook/blob/master/out.png?raw=true)
