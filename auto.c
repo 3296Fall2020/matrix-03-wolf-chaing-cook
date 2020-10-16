@@ -6,7 +6,7 @@ int main(int argc, char* argv)
 		double *a, *b, *MMULT, *SIMD;
 		FILE *datatable = fopen("datatable.txt", "w");
 
-		for (int i = 100; i < 500; i += 100)
+		for (int i = 100; i < 1000; i += 100)
 		{
 				a = gen_matrix(i, i);
 				b = gen_matrix(i, i);
