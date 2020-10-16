@@ -17,8 +17,8 @@ echo "All algorithms will be running with $NUMBEROFHOSTS as the number of hosts 
 echo ""
 
 
-echo "Running ./mmult_omp_timing without SIMD and parallelization with $MATRIXLIMIT as the parameter"
-echo "This will create the output $UNOPTIMIZED_PATH"
+echo "Running ./mmult_omp_timing without SIMD and parallelization with $MATRIXLIMIT as well as OMP"
+echo "This will create the output $UNOPTIMIZED_PATH and $OPEN_MP_PATH"
 mpiexec -f ~/hosts -n 4 ./mmult_omp_timing $MATRIXLIMIT
 echo ""
 

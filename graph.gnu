@@ -5,4 +5,4 @@ set xlabel 'Matrix size'
 set ylabel 'Time(sec)'
 set title 'Matrix Multiplication Speed on Wolfgang Cluster'
 
-plot "clusterNoSIMD.txt" using 1:3 title 'Vectorized-SIMD: 4 Hosts' with linespoint, "clusterVecSIMD.txt" using 1:3 title 'Unoptimized: 4 Hosts' with linespoint
+plot "clusterNoSIMD.txt" using 1:3 title 'Non Vectorized and SIMD' with linespoint, "clusterVecSIMD.txt" using 1:3 title 'Vectorized SIMD' with linespoint, "clusterOMD.txt" using 1:3 title 'OpenMP' with linespoint
