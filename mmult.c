@@ -20,10 +20,10 @@
  * @param bCols : the number of columns in b.
  * @return 0 if the matrix multiplication is successful.
  */
+
 int mmult(double *c, 
 	      double *a, int aRows, int aCols, 
 	      double *b, int bRows, int bCols) {
-
     for(int i = 0; i < aRows; ++i) {
         for(int j = 0; j < bCols; ++j) {
             c[i * bCols + j] = 0;
@@ -36,5 +36,20 @@ int mmult(double *c,
   return 0;
 }
 
+//vectorization
+int mmult_v(double *c, double *a, int aRows, int aCols, double *b, int bRows, int bCols) {
 
+
+    for(int i = 0; i < aRows; ++i){
+        for(int j = 0; j < bCols; ++j) {
+            c[i * bCols + j] = 0;
+            for(int k = 0; k < aRows; ++k) {
+                for(int l = 0; l < bCols; ++l) {
+                    c[i * bCols + l] += a[i * aRows + k] * b[k * bCols +l];
+                }//end of for
+            }//end of for
+        }//end of for
+    }//end of for
+    return 0;
+}//end of mmul_vector
 
