@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
         int max_matrix_size = atoi(argv[1]);
         FILE *unoptimized_Output, *openMP_Output;
         unoptimized_Output = fopen("clusterNoSIMD.txt", "w");
-        openMP_Output = fopen("clusterOMP.txt", "w");
+        //openMP_Output = fopen("clusterOMP.txt", "w");
 
 
         for (int i = 1; i <= max_matrix_size; i++) {
@@ -52,15 +52,15 @@ int main(int argc, char* argv[]) {
             sprintf(unoptimized_buffer, "%d, %d, %f\n", i, n, times[0]);
             fwrite(unoptimized_buffer, 1 , strlen(unoptimized_buffer) , unoptimized_Output);
 
-            char omp_buffer[256];
-            sprintf(omp_buffer, "%d, %d, %f\n", i, n, times[1]);
-            fwrite(omp_buffer, 1 , strlen(omp_buffer) , openMP_Output);
+           // char omp_buffer[256];
+           // sprintf(omp_buffer, "%d, %d, %f\n", i, n, times[1]);
+           // fwrite(omp_buffer, 1 , strlen(omp_buffer) , openMP_Output);
 
             // compare_matrices(c1, c2, n, n);
         }
 
         fclose(unoptimized_Output);
-        fclose(openMP_Output);
+       // fclose(openMP_Output);
     } else {
         fprintf(stderr, "Usage %s <n>\n", argv[0]);
     }
