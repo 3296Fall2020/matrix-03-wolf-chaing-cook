@@ -21,7 +21,7 @@
  * @return 0 if the matrix multiplication is successful.
  */
 
-void print_Matrix(double *a, int rows, int cols);
+//void print_Matrix(double *a, int rows, int cols);
 
 int mmult(double *c, 
 	  double *a, int aRows, int aCols, 
@@ -46,6 +46,7 @@ int mmult(double *c,
   return 0;
 }//end mmult()
 
+/*
 double* gen_matrix(int n, int m)
 {
   double* a = malloc(sizeof(double) * n * m);
@@ -58,7 +59,7 @@ double* gen_matrix(int n, int m)
   }
   return a;
 }//end gen_matrix()
-
+*/
 
 /*
 void compare_matrices(double* a, double* b, int nRows, int nCols)
@@ -79,6 +80,7 @@ void compare_matrices(double* a, double* b, int nRows, int nCols)
 }//end compare_matrices()
 */
 
+/*
 void print_Matrix(double* a, int rows, int cols)
 {
   printf("\n");
@@ -91,6 +93,6 @@ void print_Matrix(double* a, int rows, int cols)
     printf("\n");
   }
 }//end print_Matrix()
-
+*/
 
 
