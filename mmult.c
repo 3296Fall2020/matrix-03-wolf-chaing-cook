@@ -24,8 +24,6 @@
 int mmult(double *c, 
 	      double *a, int aRows, int aCols, 
 	      double *b, int bRows, int bCols) {
-
-	printf("Normal\n");
     for(int i = 0; i < aRows; ++i) {
         for(int j = 0; j < bCols; ++j) {
             c[i * bCols + j] = 0;
@@ -39,9 +37,9 @@ int mmult(double *c,
 }
 
 //vectorization
-int mmult_vector(double *c, double *a, int aRows, int aCols, double *b, int bRows, int bCols) {
-    
-	printf("Vectorization\n");
+int mmult_v(double *c, double *a, int aRows, int aCols, double *b, int bRows, int bCols) {
+
+
     for(int i = 0; i < aRows; ++i){
         for(int j = 0; j < bCols; ++j) {
             c[i * bCols + j] = 0;

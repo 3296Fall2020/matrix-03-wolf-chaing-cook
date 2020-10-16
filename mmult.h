@@ -2,5 +2,5 @@
 
 
 int mmult(double *c, double *a, int aRows, int aCols, double *b, int bRows, int bCols);
-int mmult_vector(double *c, double *a, int aRows, int aCols, double *b, int bRows, int bCols);
+int mmult_v(double *c, double *a, int aRows, int aCols, double *b, int bRows, int bCols);
 
