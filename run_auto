@@ -1,0 +1,38 @@
+#!/bin/bash
+
+MATRIXLIMIT=200
+NUMBEROFHOSTS=4
+UNOPTIMIZED_PATH=clusterNoSIMD.txt
+OPEN_MP_PATH=clusterOMP.txt
+MPI_PATH=clusterMPI.txt
+VECTORIZED_PATH=clusterVecSIMD.txt
+GRAPH_OUTPUT=out.png
+
+echo "Compiling project..."
+make
+echo "Finished compiling successfully"
+echo ""
+
+echo "All algorithms will be running with $NUMBEROFHOSTS as the number of hosts being used (paramter -n for mpiexec)"
+echo ""
+
+
+echo "Running ./mmult_omp_timing without SIMD and parallelization with $MATRIXLIMIT as the parameter"
+echo "This will create the output $UNOPTIMIZED_PATH"
+mpiexec -f ~/hosts -n 4 ./mmult_omp_timing $MATRIXLIMIT
+echo ""
+
+
+echo "Running ./test_mmult with SIMD and Vectorization with 100 as the parameter"
+echo "This will create the output $VECTORIZED_PATH"
+mpiexec -f ~/hosts -n 4 ./test_mmult 100
+echo ""
+
+
+echo "All output data has been generated, proceeding to graph the datapoints"
+gnuplot graph.gnu
+echo ""
+
+echo "Automation complete! The resulting graph has been created as $GRAPH_OUTPUT"
+echo ""
+
