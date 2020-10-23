@@ -47,6 +47,21 @@ int main(int argc, char* argv[])
             compare_matrices(cc2, cc1, nrows, nrows);
         } else {
             // Slave Code goes here
+            	MPI_Bcast(b, ncols, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+
+	if(myid <= nrows){
+		while(1){
+			MPI_Recv(buffer, nCols, MPI_DOUBLE, 0, MPI_ANY_TAG,
+			MPI_COMM_WORLD, &status);
+
+	if(status.MPI_TAG == 0){
+	break;
+	}//end of if
+
+	#pragma omp shared(ans) for reduction(+:ans)
+	ans += buffer[j] * b[j];
+	}//end of while
+	}//end of if
         }
     } else {
         fprintf(stderr, "Usage matrix_times_vector <size>\n");
