@@ -9,6 +9,8 @@
 #include <stdlib.h>
 #include <time.h>
 #include <sys/times.h>
+#include <string.h>
+
 #define min(x, y) ((x)<(y)?(x):(y))
 
 #include "mat.h"
@@ -25,45 +27,98 @@ int main(int argc, char* argv[])
     MPI_Status status;
 
     /* insert other global variables here */
+    int numsent = 0;
+    int master = 0;
+    int i,j;
+    double ans;
+    int sender = status.MPI_SOURCE;
+    int anstype = status.MPI_TAG;
+    int row = status.MPI_TAG;
+    
 
     MPI_Init(&argc, &argv);
     MPI_Comm_size(MPI_COMM_WORLD, &numprocs);
     MPI_Comm_rank(MPI_COMM_WORLD, &myid);
     if (argc > 1) {
-        nrows = atoi(argv[1]);
-        ncols = nrows;
-        
-        if (myid == 0) {
-            // Master Code goes here
-            aa = gen_matrix(nrows, ncols);
+        FILE *mpi_Output;
+        mpi_Output = fopen("clusterMPI.txt", "w");
+
+        int max_matrix_size = atoi(argv[1]);
+        for (int i = 1; i <= max_matrix_size; i++) {
+            nrows = i;
+            ncols = nrows;
+	    aa = gen_matrix(nrows, ncols);
             bb = gen_matrix(ncols, nrows);
-            cc1 = malloc(sizeof(double) * nrows * nrows); 
-            starttime = MPI_Wtime();
-            /* Insert your master code here to store the product into cc1 */
-            endtime = MPI_Wtime();
-            printf("%f\n",(endtime - starttime));
-            cc2  = malloc(sizeof(double) * nrows * nrows);
-            mmult(cc2, aa, nrows, ncols, bb, ncols, nrows);
-            compare_matrices(cc2, cc1, nrows, nrows);
-        } else {
-            // Slave Code goes here
-            	MPI_Bcast(b, ncols, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+            cc1 = (double*)malloc(sizeof(double) * ncols); 
+            if (myid == master) {
+                // Master Code goes here
+                starttime = MPI_Wtime();
 
-	if(myid <= nrows){
-		while(1){
-			MPI_Recv(buffer, nCols, MPI_DOUBLE, 0, MPI_ANY_TAG,
-			MPI_COMM_WORLD, &status);
 
-	if(status.MPI_TAG == 0){
-	break;
-	}//end of if
+                /* Insert your master code here to store the product into buffer */
+                numsent = 0;
+                MPI_Bcast(aa, ncols, MPI_DOUBLE, master, MPI_COMM_WORLD);
+                for (i = 0; i < min(numprocs-1, nrows); i++) {
+                    for (j = 0; j < ncols; j++) {
+                        cc1[j] = aa[i * ncols + j];
+                    }  
+                    MPI_Send(cc1, ncols, MPI_DOUBLE, i+1, i+1, MPI_COMM_WORLD);
+                    numsent++;
+                }
+                for (i = 0; i < nrows; i++) {
+                    MPI_Recv(&ans, 1, MPI_DOUBLE, MPI_ANY_SOURCE, MPI_ANY_TAG, 
+                        MPI_COMM_WORLD, &status);
+                    sender = status.MPI_SOURCE;
+                    anstype = status.MPI_TAG;
+                    bb[anstype-1] = ans;
+                    if (numsent < nrows) {
+                        for (j = 0; j < ncols; j++) {
+                            cc1[j] = aa[numsent*ncols + j];
+                        }  
+                        MPI_Send(cc1, ncols, MPI_DOUBLE, sender, numsent+1, 
+                            MPI_COMM_WORLD);
+                        numsent++;
+                    } else {
+                        MPI_Send(MPI_BOTTOM, 0, MPI_DOUBLE, sender, 0, MPI_COMM_WORLD);
+                    }
+                } 
+                /* End of master code (that was copied from mxv_omp_mpi.c and altered) */
 
-	#pragma omp shared(ans) for reduction(+:ans)
-	ans += buffer[j] * b[j];
-	}//end of while
-	}//end of if
+                endtime = MPI_Wtime();
+
+                // Added for graphing
+                char mpi_log_buffer[256];
+                sprintf(mpi_log_buffer, "%d, %d, %f\n", nrows, nrows, endtime-starttime);
+                fwrite(mpi_log_buffer, 1 , strlen(mpi_log_buffer) , mpi_Output);
+		    
+            } else {
+
+                // Slave Code goes here
+                MPI_Bcast(aa, ncols, MPI_DOUBLE, master, MPI_COMM_WORLD);
+                if (myid <= nrows) {
+                    while(1) {
+                        MPI_Recv(cc1, ncols, MPI_DOUBLE, master, MPI_ANY_TAG, 
+                            MPI_COMM_WORLD, &status);
+                        if (status.MPI_TAG == 0){
+                            break;
+                        }
+                        row = status.MPI_TAG;
+                        ans = 0.0;
+    #pragma omp parallel
+    #pragma omp shared(ans) for reduction(+:ans)
+                        for (j = 0; j < ncols; j++) {
+                            ans += cc1[j] * aa[j];
+                        }
+                        MPI_Send(&ans, 1, MPI_DOUBLE, master, row, MPI_COMM_WORLD);
+                    }
+                }
+                /* End of slave code (that was copied from mxv_omp_mpi.c and altered) */
+
+            }
         }
-    } else {
+        fclose(mpi_Output);
+    }
+    else {
         fprintf(stderr, "Usage matrix_times_vector <size>\n");
     }
     MPI_Finalize();
