@@ -29,7 +29,7 @@ echo ""
 
 echo "Running ./mmult_mpi_omp with $MATRIXLIMIT as the parameter"
 echo "This will create the output $MPI_PATH "
-mpiexec -f ~/hosts -n 4 ./test_mmult $MATRIXLIMIT
+mpiexec -f ~/hosts -n 4 ./mmult_mpi_omp $MATRIXLIMIT
 echo ""
 
 
