@@ -37,8 +37,8 @@ int main(int argc, char* argv[]){
 	
 	//for the controller process
 	for(i = 0; i < nrows; i++){
-	for(j= 0; j < ncols; j++){
-	aa[i*ncols + j] = (double)rand()/RAND_MAX;
+		for(j= 0; j < ncols; j++){
+			aa[i*ncols + j] = (double)rand()/RAND_MAX;
 		}//end of for
 	}//end of for
 	
@@ -63,7 +63,7 @@ int main(int argc, char* argv[]){
 	
 	if(numsent < nrows){
 		for(j = 0; j < ncols; j++){
-	buffer[j] = aa[numsent*ncols+j];
+			buffer[j] = aa[numsent*ncols+j];
 		}//end of for
 
 	MPI_Send(buffer, ncols, MPI_DOUBLE, sender, numsent+1, MPI_COMM_WORLD);
@@ -77,8 +77,10 @@ int main(int argc, char* argv[]){
 	endtime = MPI_Wtime();
 	printf("%f\n", (endtime - starttime));
 
-	}
-
+	}//end of for
+	}//end of if
+	
+	
 	else{
 	//for the worker
 	MPI_Bcast(b, ncols, MPI_DOUBLE, 0, MPI_COMM_WORLD);
@@ -98,6 +100,11 @@ int main(int argc, char* argv[]){
 	}//end of if
 	}//end of else
 
+
+	
+	
 	}//end of if
-	}//end of if
+	
+	MPI_Finalize();
+	return 0;
 }//main
