@@ -10,6 +10,9 @@ run the OpenMP program. MPI is distributed memory and is library for message pas
 messages to each other. There are two types of process, which is the controller process and the worker process and the controller 
 process would be the ones to send the messages and give the workers work essentially, while the worker receives that data and give 
 the result back to the controller.
+For Task 4 was about matrix multiplication with OPENMP. It's basically running the mmult_omp_timing and changing the graph.gnu so were are able to run it with our script. The graph for OMP looks like a straight line going across, which makes sense considering that our matrix size is quite small so we are not able to see a significant difference. If we compare our OMP to the one on the slides for Quad core, the more threads the more that the time is reaching towards zero.
+Task 5 was about matrix multiplication with MPI. For task 5 in our case we wrote the c code for it to only realize we could have just run the mxv_omp_mpi.c file, which is basically a hybrid of the mpi and the omp as it states in it's name. We just needed to make changes to the graph.gnu and then run our run auto script so we are able to see the results. From our auto-generated graph it's more like a straight line, which I believe is similar to the graph represented in the slides, but the graph shown is for numbers in the thousands to see significant change. Our program was only able to handle a few hundred for now.
+
 
 Trello: https://trello.com/b/kfWbrZQM/parallel-computing
 
