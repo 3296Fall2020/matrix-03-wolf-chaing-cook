@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 
 #include "mat.h"
 #define min(x, y) ((x)<(y)?(x):(y))
@@ -26,7 +27,8 @@ int main(int argc, char* argv[])
     MPI_Status status;
     int i, j, numsent, sender;
     int anstype, row;
-    
+    FILE *fp;    
+
     srand(time(0));
     MPI_Init(&argc, &argv);
     MPI_Comm_size(MPI_COMM_WORLD, &numprocs);
@@ -34,7 +36,8 @@ int main(int argc, char* argv[])
     if (argc > 1) {
         nrows = atoi(argv[1]);
         ncols = nrows;
-        // aa = (double*)malloc(sizeof(double) * nrows * ncols);
+
+	// aa = (double*)malloc(sizeof(double) * nrows * ncols);
         b = (double*)malloc(sizeof(double) * ncols);
         c = (double*)malloc(sizeof(double) * nrows);
         buffer = (double*)malloc(sizeof(double) * ncols);
@@ -71,6 +74,17 @@ int main(int argc, char* argv[])
             } 
             endtime = MPI_Wtime();
             printf("%f\n",(endtime - starttime));
+
+	    FILE *fp;
+	    char buffer[16];
+	    char *formatAddition = ", ";
+            sprintf(buffer, "%d%s%f%s", ncols, formatAddition, endtime-starttime, formatAddition);
+
+	    fp = fopen("FINAL_OUTPUT.txt", "a");
+	    fwrite(buffer, 1 , strlen(buffer) , fp );
+
+            fclose(fp);
+
         } else {
             // Slave Code goes here
             MPI_Bcast(b, ncols, MPI_DOUBLE, master, MPI_COMM_WORLD);

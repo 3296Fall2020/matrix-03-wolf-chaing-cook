@@ -1,7 +1,7 @@
 #!/bin/bash
 
-MATRIXLIMIT=200
-NUMBEROFHOSTS=4
+MATRIXLIMIT=100
+NUMBEROFHOSTSi=4
 UNOPTIMIZED_PATH=clusterNoSIMD.txt
 OPEN_MP_PATH=clusterOMP.txt
 MPI_PATH=clusterMPI.txt
@@ -18,14 +18,18 @@ echo ""
 
 
 echo "Running ./mmult_omp_timing without SIMD and parallelization with $MATRIXLIMIT as the parameter"
-echo "This will create the output $UNOPTIMIZED_PATH"
+echo "This will create the output $UNOPTIMIZED_PATH and $OPEN_MP_PATH"
 mpiexec -f ~/hosts -n 4 ./mmult_omp_timing $MATRIXLIMIT
 echo ""
-
 
 echo "Running ./test_mmult with SIMD and Vectorization with 100 as the parameter"
 echo "This will create the output $VECTORIZED_PATH"
 mpiexec -f ~/hosts -n 4 ./test_mmult 100
+echo ""
+
+echo "Running ./mmult_mpi_omp with $MATRIXLIMIT as the parameter"
+echo "This will create the output $MPI_PATH "
+mpiexec -f ~/hosts -n 4 ./test_mmult $MATRIXLIMIT
 echo ""
 
 
