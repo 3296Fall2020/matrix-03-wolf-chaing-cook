@@ -3,7 +3,7 @@ matrix-03-wolf-chaing-cook created by GitHub Classroom
 
 Tyler Wolf, Wayne Cook, Aley Chaing
 
-##Comparing the Different Types of Parallel Computing
+#Comparing the Different Types of Parallel Computing
 ---
 The differences between Single Instruction Multiple Data (SIMD), Open Multi-Processing (OMP) and Message Passing Interface (MPI) is 
 that SIMD is that each instruction does the same operation on multiple streams of data at the same. The code contains nested for 
@@ -15,7 +15,7 @@ messages to each other. There are two types of process, which is the controller 
 process would be the ones to send the messages and give the workers work essentially, while the worker receives that data and give 
 the result back to the controller.
 
-##Writing for Mandatory Tasks
+#Writing for Mandatory Tasks
 ---
 For Task 1 for the automated running we created a script to be able to compile all of the program and then run the programs that we need to and then just add on the data text files to the corresponding method.
 For Task 2 we were basically running the mmult_omp_timing through our script and changing some things around so we can have it on the gnu graph
@@ -23,12 +23,12 @@ For Task 3  we were running test_mmult from which we edited mmult.c file to be w
 For Task 4 was about matrix multiplication with OPENMP. It's basically running the mmult_omp_timing and changing the graph.gnu so were are able to run it with our script. The graph for OMP looks like a straight line going across, which makes sense considering that our matrix size is quite small so we are not able to see a significant difference. If we compare our OMP to the one on the slides for Quad core, the more threads the more that the time is reaching towards zero.
 Task 5 was about matrix multiplication with MPI. For task 5 in our case we wrote the c code for it to only realize we could have just run the mxv_omp_mpi.c file, which is basically a hybrid of the mpi and the omp as it states in it's name. We just needed to make changes to the graph.gnu and then run our run auto script so we are able to see the results. From our auto-generated graph it's more like a straight line, which I believe is similar to the graph represented in the slides, but the graph shown is for numbers in the thousands to see significant change. Our program was only able to handle a few hundred for now.
 
-##Distributed Parallel Computing
+#Distributed Parallel Computing
 ---
 The architecture of our solution is just the Parallel Computer architecture from which we implemented the Single Instruction Multiple Data (SIMD), the Single Instruction Multiple Threads (SIMT), Symmetric Multiprocessing, and the Distributed memory. Although I believed we implemented a sub-architecture for the distributed memory where we used the master-slave pattern.
 The variations of the algorithm implemented was mostly explained in the writing for the mandatory tasks.
 
-##Teamwork
+#Teamwork
 ---
 For the master branch we actually did not lock the master branch, but we did just look over the commits that were made during the branches before we merged it onto the master branch and from the master branch we all did a test to make sure that everything was working properly
 
@@ -39,7 +39,7 @@ Wayne:
 Aley: 
 
 
-##Full Project Life Cycle
+#Full Project Life Cycle
 ---
 For the project board we just used trello. All we did was add tasks, put the ones we were doing in progress and add it to the complete section, when we were finished. 
 In a sense it was the same where we would write the code, compile the code, run the code and test the code. The only thing that felt different working with the wolfgang cluster, was the issue of it running slowly, but apart from that some of us  normally did not write code on the command line using vim, so that was something that we adapted for the purpose of this project, although we knew we could have edited with our IDE.
