@@ -56,6 +56,6 @@ Trello: https://trello.com/b/kfWbrZQM/parallel-computing
 The output graph:
 ![alt text](https://github.com/3296Fall2020/matrix-03-wolf-chaing-cook/blob/master/out.png?raw=true)
 
-Ouput Graph when ran on computer:
-![alt text](https://github.com/3296Fall2020/matrix-03-wolf-chaing-cook/blob/master/outFromComp.png?raw=true)
+Output Graph when ran on computer:
+![alt text](https://github.com/3296Fall2020/matrix-03-wolf-chaing-cook/blob/master/outForComp.png?raw=true)
 
