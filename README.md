@@ -22,6 +22,7 @@ For Task 2 we were basically running the mmult_omp_timing through our script and
 For Task 3  we were running test_mmult from which we edited mmult.c file to be with SIMD and with vectorization and did the same by changing things around so we can plot it on the graph.
 For Task 4 was about matrix multiplication with OPENMP. It's basically running the mmult_omp_timing and changing the graph.gnu so were are able to run it with our script. The graph for OMP looks like a straight line going across, which makes sense considering that our matrix size is quite small so we are not able to see a significant difference. If we compare our OMP to the one on the slides for Quad core, the more threads the more that the time is reaching towards zero.
 Task 5 was about matrix multiplication with MPI. For task 5 in our case we wrote the c code for it to only realize we could have just run the mxv_omp_mpi.c file, which is basically a hybrid of the mpi and the omp as it states in it's name. We just needed to make changes to the graph.gnu and then run our run auto script so we are able to see the results. From our auto-generated graph it's more like a straight line, which I believe is similar to the graph represented in the slides, but the graph shown is for numbers in the thousands to see significant change. Our program was only able to handle a few hundred for now.
+For the additional task we did the we did the matrix multiplication parallelization in C on our own machine from which we just ran the script again because I believe that OpenMP and MPI were already parallelized so we just ran the entire thing again. We ran the program through kali linux in virtualbox and we just received the exact same result from what we received from when we ran the program on the wolfgang cluster.
 
 Distributed Parallel Computing
 ---
@@ -30,14 +31,16 @@ The variations of the algorithm implemented was mostly explained in the writing 
 
 Teamwork
 ---
-For the master branch we actually did not lock the master branch, but we did just look over the commits that were made during the branches before we merged it onto the master branch and from the master branch we all did a test to make sure that everything was working properly
+For the master branch we actually did not lock the master branch, but we did just look over the commits that were made during the branches before we merged it onto the master branch and from the master branch we all did a test to make sure that everything was working properly.
 
 Tyler:
+Wrote a seperate automation C program apart from our script in order to provide a broader matrix size to the limited matrix size that the script was able to handle. Also helped partners looked over the code and was there when needed.
 
 Wayne:
+Did Task 1, 2, 4 and edited the script and the graph.gnu everytime we needed to add on to the graph. Helped look over partner's work, in which also helped edit for Task 3 and Task 5.
 
 Aley: 
-
+I did the writing for Task 3, Task 5 and just ran the additional task. I also did the readme and reviewed over partner's work and help test run once everything was merged to the master.
 
 Full Project Life Cycle
 ---
@@ -52,3 +55,7 @@ Trello: https://trello.com/b/kfWbrZQM/parallel-computing
 
 The output graph:
 ![alt text](https://github.com/3296Fall2020/matrix-03-wolf-chaing-cook/blob/master/out.png?raw=true)
+
+Ouput Graph when ran on computer:
+![alt text](https://github.com/3296Fall2020/matrix-03-wolf-chaing-cook/blob/master/outFromComp.png?raw=true)
+
